@@ -1,9 +1,9 @@
-import { all } from "redux-saga/effects";
-import { watchFetchExampleData } from "./sagas/example.saga";
+import { all, fork } from "redux-saga/effects";
+import exampleSaga from "./sagas/example.saga";
 
 export default function* rootSaga() {
   yield all([
-    watchFetchExampleData(),
+    fork(exampleSaga),
     // Add other sagas here
   ]);
 }

@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from "redux-saga/effects";
+import { takeEvery, put, call, fork, all } from "redux-saga/effects";
 import {
   FETCH_EXAMPLE_DATA,
   fetchDataFailure,
@@ -23,4 +23,10 @@ export function* fetchExampleDataSaga() {
 // Watcher saga to listen for the action and trigger worker saga
 export function* watchFetchExampleData() {
   yield takeEvery(FETCH_EXAMPLE_DATA, fetchExampleDataSaga);
+}
+
+export default function* exampleSaga() {
+  yield all([
+    fork(watchFetchExampleData),
+  ]);
 }
